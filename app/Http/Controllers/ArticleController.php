@@ -70,4 +70,12 @@ class ArticleController extends Controller
         return redirect('create')->with('status', 'L\'article a bien été modifer.');
 
     }
+
+    public function deleteArticle($id) {
+        
+        $article = Article::find($id);
+        $article->delete();
+
+        return redirect('article')->with('status', 'L\'article a bien été supprimer.');
+    }
 }

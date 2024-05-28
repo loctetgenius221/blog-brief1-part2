@@ -16,4 +16,6 @@ Route::post('create/treatment', [ArticleController::class, 'createArticleTreatme
 Route::get('update/{id}', [ArticleController::class, 'updateArticle']);
 Route::post('update/treatment', [ArticleController::class, 'updateArticleTreatment']);
 
+Route::get('delete/{id}', [ArticleController::class, 'deleteArticle']);
+
 
