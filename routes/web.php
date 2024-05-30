@@ -27,4 +27,6 @@ Route::get('commentaires', [CommentaireController::class, 'readCommentaire'])->n
 
 Route::post('createCommentaire/{id}/treatment', [CommentaireController::class, 'createCommentaireTreatment'])->name('comment.store');
 
+Route::get('updateComments/{id}', [CommentaireController::class, 'updateComments']);
+Route::post('updateComments/{id}/treatment', [CommentaireController::class, 'updateCommentsTreatment'])->name('comment.update');
 

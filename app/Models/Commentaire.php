@@ -12,7 +12,7 @@ class Commentaire extends Model
     protected $fillable = [
         'article_id',
         'contenu',
-        'nom_complet_auteur',
+        'nbtnom_complet_auteur',
         'date_heure_creation'
 
     ];

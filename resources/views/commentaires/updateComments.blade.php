@@ -21,40 +21,12 @@
   </head>
   <body>
     <div class="container my-5">
-        <h1 class="title text-center">{{ $article->nom }}</h1>
-        <hr>
-        <img src="{{ $article->image }}" class="img-fluid article-image mb-4" alt="{{ $article->nom }}">
-        <p>{{ $article->description }}</p>
-        <p><strong>Date de création :</strong> {{ $article->date_de_creation }}</p>
-        <p><strong>À la une :</strong> {{ $article->a_la_une ? 'Oui' : 'Non' }}</p>
-        <a href="/article" class="btn btn-primary mb-4">Retour à la liste</a>
-
-        <hr>
 
         @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
         </div>
         @endif
-
-
-        <!-- Section des commentaires -->
-        <div class="comments-section">
-            <h2>Commentaires</h2>
-            <ul class="list-unstyled">
-                @foreach($article->commentaires as $commentaire)
-                    <li class="comment mb-3">
-                        <strong>{{ $commentaire->nom_complet_auteur }}</strong>
-                        <p>{{ $commentaire->contenu }}</p>
-                        <small class="text-muted">Posté le {{ $commentaire->created_at->format('d/m/Y') }}</small>
-                        <div class="d-flex gap-3 justify-content-end">
-                            <a href="/updateComments/{{ $commentaire->id }}" class="text-primary""><i class="fa-solid fa-pencil"></i></a>
-                            <a href="/deleteComments/{{ $commentaire->id }}" class="text-danger""><i class="fa-solid fa-trash"></i></a>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
 
         <!-- Formulaire pour ajouter un commentaire -->
         <div class="comment-form mt-4">
@@ -64,17 +36,19 @@
                 @endforeach
             </ul>
             <h3>Ajouter un commentaire</h3>
-            <form action="{{ route('comment.store', $article->id) }}" method="POST">
+            <form action="{{ route('comment.update', $commentaire->id) }}" method="POST">
                 @csrf
+                <input type="text" name="id" style="display: none;" value="{{ $commentaire->id }}">
+
                 <div class="mb-3">
                     <label for="auteur" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="auteur" name="nom_complet_auteur" required>
+                    <input type="text" class="form-control" id="auteur" name="nom_complet_auteur" value="{{ $commentaire->nom_complet_auteur }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="contenu" class="form-label">Commentaire</label>
-                    <textarea class="form-control" id="contenu" name="contenu" rows="3" required></textarea>
+                    <textarea class="form-control" id="contenu" name="contenu" rows="3" required> {{ $commentaire->contenu }} </textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button typeEnvoyer="submit" class="btn btn-primary">Modifier le commentaire</button>
             </form>
         </div>
     </div>
