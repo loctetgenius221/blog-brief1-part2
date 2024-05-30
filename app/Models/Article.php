@@ -19,6 +19,6 @@ class Article extends Model
 
     public function commentaires()
     {
-        return $this->hasMany(Commentaire::class);
+        return $this->hasMany(Commentaire::class, 'article_id');
     }
 }

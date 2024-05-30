@@ -19,6 +19,14 @@ class ArticleController extends Controller
        ]);
     }
 
+
+    public function showArticle($id) {
+        $article = Article::with('commentaires')->findOrFail($id);
+        return view('articles.show', [
+            'article' => $article
+        ]);
+    }
+
     public function createArticle() {
 
         return view('articles.create');
@@ -26,20 +34,33 @@ class ArticleController extends Controller
 
     public function createArticleTreatment(Request $request) {
 
-        $request->validate([
-            'nom' => 'required',
-            'description' => 'required',
-            'image_url' => 'required|url',
-            'date_creation' => 'required|date',
-            'a_la_une' => 'required'
-        ]);
-        $article = new Article();
-        $article->nom = $request->nom;
-        $article->description = $request->description;
-        $article->image_url = $request->image_url;
-        $article->date_creation = $request->date_creation;
-        $article->a_la_une = $request->a_la_une;
-        $article->save();
+        // $request->validate([
+        //     'nom' => 'required',
+        //     'description' => 'required',
+        //     'image_url' => 'required|url',
+        //     'date_creation' => 'required|date',
+        //     'a_la_une' => 'required'
+        // ]);
+        // $article = new Article();
+        // $article->nom = $request->nom;
+        // $article->description = $request->description;
+        // $article->image_url = $request->image_url;
+        // $article->date_creation = $request->date_creation;
+        // $article->a_la_une = $request->a_la_une;
+        // $article->save();
+
+        Article::create( $request->all() );
+
+        // Deuxième méthode
+        // dd $request->all();
+        // Article::create([
+        //     'nom' => $request->nom,
+        //     'description' => $request->nom,
+        //     'image_url' => $request->image_url,
+        //     'date_creation' => $request->date_creation,
+        //     'a_la_une' => $request->a_la_une
+        // ]);
+        // Implique d'allez dans le model pour creer le $fillable
 
         return redirect('create')->with('status', 'L\'article a bien été enregistrer.');
 
@@ -72,7 +93,7 @@ class ArticleController extends Controller
     }
 
     public function deleteArticle($id) {
-        
+
         $article = Article::find($id);
         $article->delete();
 
