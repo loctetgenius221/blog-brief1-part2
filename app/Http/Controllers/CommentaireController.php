@@ -59,5 +59,13 @@ class CommentaireController extends Controller
         return redirect()->route('article.show', $commentaire->article_id)->with('status', 'Le commentaire a été modifié avec succès');
     }
 
+    public function deleteComments($id) {
+
+        $commentaire = Commentaire::findOrFail($id);
+        $commentaire->delete();
+
+        return redirect()->route('article.show', $commentaire->article_id)->with('status', 'Le commentaire a bien été supprimer avec succès');
+    }
+
 
 }

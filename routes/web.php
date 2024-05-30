@@ -30,3 +30,6 @@ Route::post('createCommentaire/{id}/treatment', [CommentaireController::class, '
 Route::get('updateComments/{id}', [CommentaireController::class, 'updateComments']);
 Route::post('updateComments/{id}/treatment', [CommentaireController::class, 'updateCommentsTreatment'])->name('comment.update');
 
+Route::get('deleteComments/{id}', [CommentaireController::class, 'deleteComments']);
+
+
