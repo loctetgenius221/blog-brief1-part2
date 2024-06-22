@@ -27,8 +27,9 @@ class CommentaireController extends Controller
         $article = Article::findOrFail($article_id);
 
         $article->commentaires()->create([
+            
             'contenu' => $request->contenu,
-            'nom_complet_auteur' => $request->nom_complet_auteur
+            'nom_complet_auteur' => $request->nom_complet_auteur,
         ]);
 
         return back()->with('status', 'Le commentaire a été ajouter avec succès');

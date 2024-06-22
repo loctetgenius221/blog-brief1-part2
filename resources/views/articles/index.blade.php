@@ -20,39 +20,69 @@
       .btn-group {
         margin-top: auto;
       }
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .header {
+        min-height: 600px;
+        background: url('https://cdn.pixabay.com/photo/2020/08/22/17/51/boat-5509027_1280.jpg') no-repeat center center;
+        background-size: cover;
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+      }
+      .header .container {
+        width: 100%;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">Mon Blog</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Accueil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#">À propos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#">Contact</a>
               </li>
-
             </ul>
             <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">Rechercher</button>
             </form>
           </div>
         </div>
-      </nav>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1>Bienvenue sur Mon Blog</h1>
+            <p class="lead">Découvrez nos derniers articles et nos articles à la une</p>
+        </div>
+    </header>
+
 
     <div class="container">
-        <h1 class="title text-center my-5">Voici la liste des articles</h1>
+        <h1 class="title text-center my-5">Liste des articles</h1>
         <div class="text-center mb-5">
             <a href="/create" class="btn btn-primary">Ajouter un article</a>
         </div>
@@ -69,14 +99,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $article->nom }}</h5>
                             <p class="card-text">{{ \Illuminate\Support\Str::limit($article->description, 100, $end='...') }}</p>
-                            <p class="card-text"><small class="text-muted">{{ $article->date_de_creation }}</small></p>
-                            <div class="btn-group">
-                                <a href="/article/{{ $article->id }}" class="btn btn-primary">Voir plus</a>
-                                <a href="/update/{{ $article->id }}" class="btn btn-info">Modifier</a>
-                                <a href="/delete/{{ $article->id }}" class="btn btn-danger">Supprimer</a>
+                            <p class="card-text"><small class="text-muted">{{ $article->created_at }}</small></p>
+                            <div class="btn-group mt-auto">
+                                <a href="/article/{{ $article->id }}" class="btn border btn-sm me-2">Voir plus</a>
+                                <a href="/update/{{ $article->id }}" class="btn border-info btn-sm me-2">Modifier</a>
+                                <a href="/delete/{{ $article->id }}" class="btn border-danger btn-sm">Supprimer</a>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 @endforeach
             </div>
@@ -86,7 +117,7 @@
 
         <!-- Regular Articles Section -->
         <div class="articles">
-            <h2 class="text-center">Articles</h2>
+            <h2 class="text-center">Tous les articles</h2>
             <hr>
             <div class="row">
                 @foreach ($articles as $article)
@@ -96,16 +127,20 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $article->nom }}</h5>
                             <p class="card-text">{{ \Illuminate\Support\Str::limit($article->description, 100, $end='...') }}</p>
-                            <p class="card-text"><small class="text-muted">{{ $article->date_de_creation }}</small></p>
+                            <p class="card-text"><small class="text-muted">{{ $article->created_at }}</small></p>
                             <div class="btn-group">
-                                <a href="/article/{{ $article->id }}" class="btn btn-primary">Voir plus</a>
-                                <a href="/update/{{ $article->id }}" class="btn btn-info">Modifier</a>
-                                <a href="/delete/{{ $article->id }}" class="btn btn-danger">Supprimer</a>
+                                <a href="/article/{{ $article->id }}" class="btn border btn-sm me-2">Voir plus</a>
+                                <a href="/update/{{ $article->id }}" class="btn border-info btn-sm me-2">Modifier</a>
+                                <a href="/delete/{{ $article->id }}" class="btn border-danger btn-sm">Supprimer</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
+            </div>
+
+            <div class="d-flex justify-content-center">
+                {{ $articles->links() }}
             </div>
         </div>
     </div>

@@ -20,14 +20,41 @@
     </style>
   </head>
   <body>
+
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Mon Blog</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">À propos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>deleteComments
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">Rechercher</button>
+            </form>
+          </div>
+        </div>
+    </nav>
+
     <div class="container my-5">
         <h1 class="title text-center">{{ $article->nom }}</h1>
         <hr>
-        <img src="{{ $article->image }}" class="img-fluid article-image mb-4" alt="{{ $article->nom }}">
+        <img src="{{ $article->image_url }}" class="img-fluid article-image mb-4" alt="{{ $article->nom }}">
         <p>{{ $article->description }}</p>
         <p><strong>Date de création :</strong> {{ $article->date_de_creation }}</p>
         <p><strong>À la une :</strong> {{ $article->a_la_une ? 'Oui' : 'Non' }}</p>
-        <a href="/article" class="btn btn-primary mb-4">Retour à la liste</a>
+        <a href="/" class="btn btn-primary mb-4">Retour à la liste</a>
 
         <hr>
 
@@ -48,8 +75,8 @@
                         <p>{{ $commentaire->contenu }}</p>
                         <small class="text-muted">Posté le {{ $commentaire->created_at->format('d/m/Y') }}</small>
                         <div class="d-flex gap-3 justify-content-end">
-                            <a href="/updateComments/{{ $commentaire->id }}" class="text-primary""><i class="fa-solid fa-pencil"></i></a>
-                            <a href="/deleteComments/{{ $commentaire->id }}" class="text-danger""><i class="fa-solid fa-trash"></i></a>
+                            <a href="/updateComments/{{ $commentaire->id }}" class="text-primary"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="/deleteComments/{{ $commentaire->id }}" class="text-danger"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </li>
                 @endforeach
@@ -67,8 +94,8 @@
             <form action="{{ route('comment.store', $article->id) }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="auteur" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="auteur" name="nom_complet_auteur" required>
+                    <label for="nom_complet_auteur" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom_complet_auteur" name="nom_complet_auteur" required>
                 </div>
                 <div class="mb-3">
                     <label for="contenu" class="form-label">Commentaire</label>
